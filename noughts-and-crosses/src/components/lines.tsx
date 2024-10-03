@@ -1,15 +1,30 @@
 import * as React from "react"
+import { useEffect, useState } from "react";
 
-const Lines = () => {
-const div = document.getElementsByClassName("Q");
-if (div){
-const blocks: HTMLDivElement[] = Array.from(div.querySelectorAll("div"))
-}
+const Lines = () => {  
+    const [BA, setBA] = useState<HTMLElement[]>([]);
 
+    useEffect(() => {
+        const blocks = document.getElementsByClassName("Q");
+        const BA = Array.from(blocks) as HTMLElement[];
+        setBA(BA);
+
+        BA.forEach((block, index) => {
+        block.onclick = () => {
+        console.log(index + 1);
+        };
+    });
+    
+return () => {
+    BA.forEach((block) => {
+    block.onclick = null; 
+    });
+    };
+}, 
+[]);
+
+return(
         
-    return(
-        
-       
     <>
         <div className="relative h-96 w-96">
             <div className="absolute grid grid-cols-3 grid-rows-3 w-full h-full">
@@ -33,9 +48,9 @@ const blocks: HTMLDivElement[] = Array.from(div.querySelectorAll("div"))
             <div className="absolute top-2/3 w-96 h-1 bg-black"></div>
         </div>
     </>
-        
-    )
+);
 };
+
 
 
 export default Lines;
